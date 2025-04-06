@@ -1,6 +1,6 @@
 # Biometric Image Validator 🖼️👤
 
-#### Video Demo: [Watch here](https://youtu.be/OAjQOo_cY50)
+#### Video Demo: 
 #### Description:
 
 
