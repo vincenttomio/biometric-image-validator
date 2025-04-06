@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Validation Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header {% if result.is_valid %}bg-success{% else %}bg-danger{% endif %} text-white">
+                <h1 class="text-center mb-0">Validation Result</h1>
+            </div>
+            <div class="card-body">
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Main Status -->
+                {% if result.is_valid %}
+                    <div class="alert alert-success">
+                        <h4 class="alert-heading">Valid Image!</h4>
+                        <p>All requirements were met</p>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger">
+                        <h4 class="alert-heading">Invalid Image!</h4>
+                        <p>Issues were found in the image</p>
+                    </div>
+                {% endif %}
+
+                <!-- Image Section -->
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                Original Image
+                            </div>
+                            <div class="card-body">
+                                <img src="{{ url_for('static', filename='uploads/' + result.original_image) }}" 
+                                     class="img-fluid rounded" 
+                                     alt="Original Image">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-header bg-info text-white">
+                                Face Analysis
+                            </div>
+                            <div class="card-body">
+                                {% if result.processed_image %}
+                                    <img src="{{ url_for('static', filename='uploads/' + result.processed_image) }}" 
+                                         class="img-fluid rounded" 
+                                         alt="Face Analysis">
+                                    <div class="mt-2 text-muted small">
+                                        Faces detected: {{ result.face_analysis.count if result.face_analysis else 0 }}
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-warning">
+                                        No processed face detected
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Metrics -->
+                <div class="card mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        Technical Metrics
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Basic Information</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-6">Resolution</dt>
+                                    <dd class="col-sm-6">{{ result.metrics.resolution.width }}x{{ result.metrics.resolution.height }}</dd>
+                                    
+                                    <dt class="col-sm-6">DPI</dt>
+                                    <dd class="col-sm-6">{{ result.metrics.dpi.horizontal }}x{{ result.metrics.dpi.vertical }}</dd>
+                                    
+                                    <dt class="col-sm-6">File Size</dt>
+                                    <dd class="col-sm-6">{{ (result.metrics.file_size / 1024)|round(2) }} KB</dd>
+                                </dl>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5>Image Quality</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-6">Brightness</dt>
+                                    <dd class="col-sm-6">{{ "%.1f"|format(result.metrics.brightness) }}</dd>
+                                    
+                                    <dt class="col-sm-6">Contrast</dt>
+                                    <dd class="col-sm-6">{{ "%.1f"|format(result.metrics.contrast) }}</dd>
+                                    
+                                    <dt class="col-sm-6">Sharpness</dt>
+                                    <dd class="col-sm-6">{{ "%.1f"|format(result.metrics.sharpness) }}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Details -->
+                {% if result.messages %}
+                    <div class="card mb-4">
+                        <div class="card-header bg-warning text-dark">
+                            <h3 class="mb-0">Analysis Details</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                {% for message in result.messages %}
+                                    <li class="list-group-item {% if 'invalid' in message|lower %}list-group-item-danger{% else %}list-group-item-success{% endif %}">
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Back Button -->
+                <div class="text-center mt-4">
+                    <a href="/" class="btn btn-primary btn-lg">
+                        <i class="bi bi-arrow-left"></i> New Validation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

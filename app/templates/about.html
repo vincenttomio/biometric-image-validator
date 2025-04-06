@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About ISO/IEC 19794-5 Standard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .feature-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+        .spec-card {
+            transition: transform 0.2s;
+        }
+        .spec-card:hover {
+            transform: translateY(-5px);
+        }
+        .nav-pills .nav-link {
+            border: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-primary">
+                <i class="fas fa-id-card-alt"></i> ISO/IEC 19794-5
+            </h1>
+            <p class="lead text-muted">International Standard for Biometric Facial Recognition</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row g-4">
+            <!-- Left Column -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0"><i class="fas fa-info-circle"></i> Key Requirements</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-expand-arrows-alt text-primary feature-icon"></i>
+                                    <div>
+                                        <h5>Image Composition</h5>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-success"></i> Frontal face positioning</li>
+                                            <li><i class="fas fa-check text-success"></i> Neutral expression</li>
+                                            <li><i class="fas fa-check text-success"></i> Eyes open and visible</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-ruler-combined text-primary feature-icon"></i>
+                                    <div>
+                                        <h5>Technical Specs</h5>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-image text-info"></i> 640×480px minimum</li>
+                                            <li><i class="fas fa-palette text-info"></i> 24-bit color depth</li>
+                                            <li><i class="fas fa-dot-circle text-info"></i> ≥150 DPI enforced</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Validation Criteria Cards -->
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm h-100 spec-card">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0"><i class="fas fa-sun"></i> Lighting & Quality</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <th>Brightness</th>
+                                            <td>40-220 units</td>
+                                            <td><i class="fas fa-lightbulb text-warning"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contrast</th>
+                                            <td>>30 units</td>
+                                            <td><i class="fas fa-adjust text-info"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Sharpness</th>
+                                            <td>>80 LV</td>
+                                            <td><i class="fas fa-bullseye text-danger"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card shadow-sm h-100 spec-card">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0"><i class="fas fa-user"></i> Facial Requirements</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <th>Face Size</th>
+                                            <td>≥15% of image</td>
+                                            <td><i class="fas fa-ruler text-primary"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Position</th>
+                                            <td>30-70% frame</td>
+                                            <td><i class="fas fa-crosshairs text-success"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Symmetry</th>
+                                            <td>Template score</td>
+                                            <td><i class="fas fa-balance-scale text-warning"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning">
+                        <h5 class="mb-0"><i class="fas fa-microscope"></i> Technical Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item">
+                                <h6><i class="fas fa-cogs me-2"></i>Detection System</h6>
+                                <small class="text-muted">Haar Cascade with adaptive sizing</small>
+                            </div>
+                            <div class="list-group-item">
+                                <h6><i class="fas fa-sliders-h me-2"></i>Quality Metrics</h6>
+                                <small class="text-muted">Real-time brightness/contrast analysis</small>
+                            </div>
+                            <div class="list-group-item">
+                                <h6><i class="fas fa-check-double me-2"></i>Validation Checks</h6>
+                                <small class="text-muted">15+ automated ISO validations</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-4">
+                    <div class="card-body text-center">
+                        <h5><i class="fas fa-file-alt me-2"></i>Full Documentation</h5>
+                        <a href="https://www.iso.org/standard/50867.html" 
+                           class="btn btn-outline-primary mt-2" 
+                           target="_blank">
+                           View Full Standard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer CTA -->
+        <div class="text-center mt-5">
+            <a href="/" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-arrow-left"></i> Back to Validator
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
